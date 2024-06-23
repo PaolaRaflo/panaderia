@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Panadería - Usuarios</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/bakery.png" type="image/x-icon">
+    <!-- Línea para cargar el CSS desde la carpeta estática -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Line Awesome Icons -->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2><span class="las la-store"></span><span>Panadería</span></h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="#" class="active"><span class="las la-home"></span><span>Administrador</span></a></li>
+                <li class="sidebar-section">MENÚ</li>
+                <li>
+                    <a href="#seguridadSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <span class="las la-cog"></span><span>Módulo de Seguridad</span>
+                    </a>
+                    <ul class="collapse list-unstyled" id="seguridadSubmenu">
+                        <li><a href="usuarios.html">Usuarios</a></li>
+                        <li><a href="#">Perfiles</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h2>
+                <span class="las la-bars" id="sidebarToggle"></span>
+                Bienvenido
+            </h2>
+            <div class="search-wrapper">
+                <span class="las la-search"></span>
+                <input type="search" placeholder="Buscar aquí">
+            </div>
+            <div class="user-wrapper">
+                <img src="img/human.png" width="40px" height="40px" alt="Perfil">
+                <div>
+                    <h4>Usuario</h4>
+                    <small>Admin</small>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <h2>Lista de Usuarios</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo Electrónico</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuariosTableBody">
+                    </tbody>
+                </table>
+
+                <button class="btn btn-primary" data-toggle="modal" data-target="#nuevoUsuarioModal">Nuevo Usuario</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para registrar usuario -->
+<div class="modal fade" id="nuevoUsuarioModal" tabindex="-1" aria-labelledby="nuevoUsuarioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="nuevoUsuarioModalLabel">Registrar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="usuarioForm">
+                    <div class="form-group">
+                        <label for="firstname">Nombre:</label>
+                        <input type="text" id="firstname" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Apellido:</label>
+                        <input type="text" id="lastname" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Correo Electrónico:</label>
+                        <input type="email" id="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Registrar Usuario</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Modal para editar usuario -->
+<div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editarUsuarioForm">
+                    <input type="hidden" id="editUserId">
+                    <div class="form-group">
+                        <label for="editFirstname">Nombre:</label>
+                        <input type="text" id="editFirstname" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editLastname">Apellido:</label>
+                        <input type="text" id="editLastname" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUsername">Correo Electrónico:</label>
+                        <input type="email" id="editUsername" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPassword">Contraseña:</label>
+                        <input type="password" id="editPassword" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="editRole">Rol:</label>
+                        <select id="editRole" class="form-control" required>
+                            <option value="USER">Usuario</option>
+                            <option value="ADMIN">Administrador</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Actualizar Usuario</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Bootstrap JS y jQuery -->
+    <script defer src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script defer src="usuarios.js"></script>
+</body>
+</html>

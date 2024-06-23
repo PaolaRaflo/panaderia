@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión y Registro</title>
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <style>
+        @font-face {
+            font-family: poppins-regular;
+            src: url('fonts/poppins/Poppins-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: poppins-semibold;
+            src: url('fonts/poppins/Poppins-SemiBold.ttf');
+        }
+
+        body {
+            font-family: poppins-regular;
+            color: #000;
+            font-size: 15px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('img/bg-e.jpeg') no-repeat center center/cover;
+        }
+
+        input, textarea, select, button {
+            font-family: poppins-regular;
+            color: #333;
+            font-size: 13px;
+        }
+
+        p, h1, h2, h3, h4, h5, h6, ul {
+            margin: 0;
+        }
+
+        ul {
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(139, 88, 67, 0.9);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .inner {
+            width: 100%;
+            background: #fff;
+            padding: 30px; /* Aumentamos el padding */
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .inner .image-holder {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px; /* Aumentamos el margen */
+        }
+
+        .inner .image-holder img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .inner form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between; /* Espaciamos los campos */
+        }
+
+        .inner h3 {
+            text-transform: uppercase;
+            font-size: 25px;
+            font-family: poppins-semibold;
+            text-align: center;
+            margin-bottom: 20px; /* Reducimos el margen */
+        }
+
+        .form-wrapper {
+            position: relative;
+            margin-bottom: 20px; /* Reducimos el margen */
+            width: 100%; /* Aseguramos que los campos ocupen todo el ancho disponible */
+        }
+
+        .form-wrapper i {
+            position: absolute;
+            bottom: 9px;
+            right: 10px;
+        }
+
+        .form-control {
+            border: 1px solid #333;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            display: block;
+            width: 100%;
+            height: 35px; /* Incrementamos la altura */
+            padding: 0;
+            margin-bottom: 5px;
+        }
+
+        .form-control::placeholder {
+            font-size: 13px;
+            color: #333;
+            font-family: poppins-regular;
+        }
+
+        button {
+            border: none;
+            width: 100%;
+            height: 45px; /* Reducimos la altura */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #333;
+            font-size: 15px;
+            color: #fff;
+            transition-duration: .3s;
+            margin-top: 20px; /* Aumentamos el margen superior */
+            padding: 10px; /* Añadimos padding */
+        }
+
+        button i {
+            margin-left: 10px;
+            animation-name: hvr-icon-wobble-horizontal;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: 1;
+        }
+
+        @keyframes hvr-icon-wobble-horizontal {
+            16.65% {
+                transform: translateX(6px);
+            }
+            33.3% {
+                transform: translateX(-5px);
+            }
+            49.95% {
+                transform: translateX(4px);
+            }
+            66.6% {
+                transform: translateX(-2px);
+            }
+            83.25% {
+                transform: translateX(1px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .inner {
+                width: 100%;
+                padding: 40px 0 30px;
+            }
+        }
+
+        .token-display {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #333;
+            background: #f8f8f8;
+            font-size: 14px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        #registerForm {
+            display: none;
+        }
+
+        .toggle-link {
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+            color: #000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="inner">
+            <div class="image-holder">
+            </div>
+            <form id="loginForm">
+                <h3>Inicio de Sesión</h3>
+                <div class="form-wrapper">
+                    <label for="login-username">Correo Electrónico:</label>
+                    <input type="email" id="login-username" name="username" class="form-control" placeholder="Correo Electrónico" required>
+                    <i class="zmdi zmdi-email"></i>
+                </div>
+                <div class="form-wrapper">
+                    <label for="login-password">Contraseña:</label>
+                    <input type="password" id="login-password" name="password" class="form-control" placeholder="Contraseña" required>
+                    <i class="zmdi zmdi-lock"></i>
+                </div>
+                <button type="submit">Iniciar Sesión <i class="zmdi zmdi-arrow-right"></i></button>
+            </form>
+            <p id="loginResult" class="token-display"></p>
+            <div class="toggle-link" onclick="toggleForms()">¿No tienes cuenta? Regístrate aquí</div>
+            <form id="registerForm">
+                <h3>Registro de Usuario</h3>
+                <div class="form-wrapper">
+                    <label for="register-firstname">Nombre:</label>
+                    <input type="text" id="register-firstname" name="firstname" class="form-control" placeholder="Nombre" required>
+                </div>
+                <div class="form-wrapper">
+                    <label for="register-lastname">Apellido:</label>
+                    <input type="text" id="register-lastname" name="lastname" class="form-control" placeholder="Apellido" required>
+                </div>
+                <div class="form-wrapper">
+                    <label for="register-username">Correo Electrónico:</label>
+                    <input type="email" id="register-username" name="username" class="form-control" placeholder="Correo Electrónico" required>
+                </div>
+                <div class="form-wrapper">
+                    <label for="register-password">Contraseña:</label>
+                    <input type="password" id="register-password" name="password" class="form-control" placeholder="Contraseña" required>
+                </div>
+                <button type="submit">Registrar <i class="zmdi zmdi-arrow-right"></i></button>
+            </form>
+            <p id="registerResult" class="token-display"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const toggleLink = document.querySelector('.toggle-link');
+
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                toggleLink.textContent = '¿No tienes cuenta? Regístrate aquí';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                toggleLink.textContent = '¿Ya tienes cuenta? Inicia sesión aquí';
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const loginData = {
+                username: document.getElementById('login-username').value,
+                password: document.getElementById('login-password').value
+            };
+    
+            axios.post('http://panaderia.app.informaticapp.com:3027/auth/login', loginData)
+                .then(response => {
+                    document.getElementById('loginResult').textContent = 'Token: ' + response.data.token;
+                })
+                .catch(error => {
+                    document.getElementById('loginResult').textContent = 'Error al iniciar sesión';
+                    console.error(error);
+                });
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const registerData = {
+                firstname: document.getElementById('register-firstname').value,
+                lastname: document.getElementById('register-lastname').value,
+                username: document.getElementById('register-username').value,
+                password: document.getElementById('register-password').value
+            };
+
+            axios.post('http://panaderia.app.informaticapp.com:3027/auth/register', registerData)
+                .then(response => {
+                    document.getElementById('registerResult').textContent = 'Usuario registrado con éxito';
+                })
+                .catch(error => {
+                    document.getElementById('registerResult').textContent = 'Error al registrar usuario';
+                    console.error(error);
+                });
+        });
+    </script>
+</body>
+</html>
