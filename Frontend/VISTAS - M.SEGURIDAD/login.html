@@ -280,7 +280,9 @@
     
             axios.post('http://panaderia.app.informaticapp.com:3027/auth/login', loginData)
                 .then(response => {
-                    document.getElementById('loginResult').textContent = 'Token: ' + response.data.token;
+                    sessionStorage.setItem("token", response.data.token);
+                    //document.getElementById('loginResult').textContent = 'Token: ' + response.data.token;
+                    window.location = "index.html";
                 })
                 .catch(error => {
                     document.getElementById('loginResult').textContent = 'Error al iniciar sesión';

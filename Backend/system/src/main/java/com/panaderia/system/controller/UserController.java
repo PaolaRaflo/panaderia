@@ -1,12 +1,24 @@
 package com.panaderia.system.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-import com.panaderia.system.model.User;
-import com.panaderia.system.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.panaderia.system.model.User;
+import com.panaderia.system.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
@@ -39,6 +51,7 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User userDetails) {
         Optional<User> optionalUser = userRepository.findById(id);
@@ -49,6 +62,7 @@ public class UserController {
             user.setLastname(userDetails.getLastname());
             user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
             user.setRole(userDetails.getRole());
+            user.setIdperfil(userDetails.getIdperfil());
             User updatedUser = userRepository.save(user);
             return ResponseEntity.ok(updatedUser);
         } else {
@@ -64,5 +78,14 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/user/id")
+    public String getUserId(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
+        
+        return user.getId().toString()+"|"+user.getIdperfil().toString();
     }
 }

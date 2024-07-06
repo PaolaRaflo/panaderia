@@ -1,11 +1,22 @@
 package com.panaderia.system.model;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import jakarta.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
@@ -27,20 +38,25 @@ public class User implements UserDetails {
     private String firstname;
 
     private String password;
+    
+
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private Integer idperfil;
+
     public User() {
     }
 
-    public User(Integer id, String username, String lastname, String firstname, String password, Role role) {
+    public User(Integer id, String username, String lastname, String firstname, String password, Role role, Integer idperfil) {
         this.id = id;
         this.username = username;
         this.lastname = lastname;
         this.firstname = firstname;
         this.password = password;
         this.role = role;
+        this.idperfil = idperfil;
     }
 
     public static Builder builder() {
@@ -54,6 +70,7 @@ public class User implements UserDetails {
         private String firstname;
         private String password;
         private Role role;
+        private Integer idperfil;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -85,8 +102,13 @@ public class User implements UserDetails {
             return this;
         }
 
+        public Builder idperfil(Integer idperfil) {
+            this.idperfil = idperfil;
+            return this;
+        }
+
         public User build() {
-            return new User(id, username, lastname, firstname, password, role);
+            return new User(id, username, lastname, firstname, password, role, idperfil);
         }
     }
 
@@ -149,13 +171,22 @@ public class User implements UserDetails {
 		this.firstname = firstname;
 	}
 
-	public Role getRole() {
+    public Role getRole() {
 		return role;
 	}
 
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
+    public Integer getIdperfil() {
+		return idperfil;
+	}
+
+	public void setIdperfil(Integer idperfil) {
+		this.idperfil = idperfil;
+	}
+
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -169,13 +200,14 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	public User(String username, String lastname, String firstname, String password, Role role) {
+	public User(String username, String lastname, String firstname, String password, Role role, Integer idperfil) {
 		super();
 		this.username = username;
 		this.lastname = lastname;
 		this.firstname = firstname;
 		this.password = password;
 		this.role = role;
+		this.idperfil = idperfil;
 	}
  
     

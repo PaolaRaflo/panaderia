@@ -1,6 +1,39 @@
 $(document).ready(function() {
     const apiUrlUsuarios = "http://panaderia.app.informaticapp.com:3027/api/v1/usuarios";
-    let jwtToken = prompt("Por favor ingrese su token:");
+    const apiUrlPerfiles = "http://panaderia.app.informaticapp.com:3027/api/v1/perfiles";
+    // let jwtToken = prompt("Por favor ingrese su token:");
+    let jwtToken = sessionStorage.getItem("token");
+
+    function load_select_perfiles() {
+        $.ajax({
+            url: apiUrlPerfiles,
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${jwtToken}`
+            },
+            success: function(response) {
+                $("#idperfil").append(`
+                    <option value="">Seleccione</option>
+                `);
+                $("#editIdperfil").append(`
+                    <option value="">Seleccione</option>
+                `);
+                response.forEach(perfil => {
+                    $("#idperfil").append(`
+                        <option value="${perfil.idPerfil}">${perfil.perfil}</option>
+                    `);
+                    $("#editIdperfil").append(`
+                        <option value="${perfil.idPerfil}">${perfil.perfil}</option>
+                    `);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al cargar perfiles:", status, error);
+            }
+        });
+    }
+    load_select_perfiles();
+
 
     // Función para cargar y mostrar la lista de usuarios
     function loadUsuarios() {
@@ -47,7 +80,8 @@ $(document).ready(function() {
             lastname: $("#lastname").val(),
             username: $("#username").val(),
             password: $("#password").val(),
-            role: "USER" // Puedes establecer el rol por defecto aquí, según tu lógica
+            role: "USER", // Puedes establecer el rol por defecto aquí, según tu lógica
+            idperfil: $("#idperfil").val(),
         };
 
         // Realizar la petición POST para registrar el nuevo usuario
@@ -88,6 +122,7 @@ $(document).ready(function() {
                 $("#editLastname").val(usuario.lastname);
                 $("#editUsername").val(usuario.username);
                 $("#editRole").val(usuario.role);
+                $("#editIdperfil").val(usuario.idperfil);
             },
             error: function(xhr, status, error) {
                 console.error("Error al cargar datos del usuario:", status, error);
@@ -105,7 +140,8 @@ $(document).ready(function() {
             lastname: $("#editLastname").val(),
             username: $("#editUsername").val(),
             password: $("#editPassword").val(),
-            role: $("#editRole").val()
+            role: $("#editRole").val(),
+            idperfil: $("#editIdperfil").val()
         };
 
         // Realizar la petición PUT para actualizar los datos del usuario

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Panadería - Perfiles</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/bakery.png" type="image/x-icon">
+    <!-- Línea para cargar el CSS desde la carpeta estática -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Line Awesome Icons -->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2><span class="las la-store"></span><span>Panadería</span></h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="#" class="active"><span class="las la-home"></span><span>Administrador</span></a></li>
+                <li class="sidebar-section">MENÚ</li>
+                <li id="menu_accesos">
+                    <!-- <a href="#seguridadSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <span class="las la-cog"></span><span>Módulo de Seguridad</span>
+                    </a>
+                    <ul class="collapse list-unstyled show" id="seguridadSubmenu">
+                        <li><a href="usuarios.html">Usuarios</a></li>
+                        <li><a class="active" href="perfiles.html">Perfiles</a></li>
+                        <li><a href="modulos.html">Modulos</a></li>
+                        <li><a href="accesos.html">Accesos</a></li>
+                    </ul> -->
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h2>
+                <span class="las la-bars" id="sidebarToggle"></span>
+                Bienvenido
+            </h2>
+            <div class="search-wrapper">
+                <span class="las la-search"></span>
+                <input type="search" placeholder="Buscar aquí">
+            </div>
+            <div class="user-wrapper">
+                <img src="../img/entrada.jpeg" width="40px" height="40px" alt="Perfil">
+                <div>
+                    <h4>Usuario</h4>
+                    <small>Admin</small>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <h2>Lista de Perfiles</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Perfil</th>
+                           
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="perfilesTableBody">
+                    </tbody>
+                </table>
+
+                <button class="btn btn-primary" data-toggle="modal" data-target="#nuevoPerfilModal">Nuevo Perfil</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para registrar usuario -->
+<div class="modal fade" id="nuevoPerfilModal" tabindex="-1" aria-labelledby="nuevoPerfilModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="nuevoPerfilModalLabel">Registrar Perfil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="perfilForm">
+                    <div class="form-group">
+                        <label for="perfil">Perfil:</label>
+                        <input type="text" id="perfil" class="form-control" required>
+                    </div>
+                   
+                    <button type="submit" class="btn btn-success">Registrar Perfil</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Modal para editar usuario -->
+<div class="modal fade" id="editarPerfilModal" tabindex="-1" aria-labelledby="editarPerfilModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarPerfilModalLabel">Editar Perfil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editarPerfilForm">
+                    <input type="hidden" id="editPerfilId">
+                    <div class="form-group">
+                        <label for="editPerfil">Perfil:</label>
+                        <input type="text" id="editPerfil" class="form-control" required>
+                    </div>
+                   
+                    <button type="submit" class="btn btn-success">Actualizar Perfil</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Bootstrap JS y jQuery -->
+    <script defer src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script defer src="../js/app.js"></script>
+    <script defer src="../js/perfiles.js"></script>
+</body>
+</html>

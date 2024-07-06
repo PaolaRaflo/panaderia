@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SystemmApplication<system>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.panaderia.system.SystemmApplication",
+            "projectName": "system",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
